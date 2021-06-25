@@ -1,16 +1,93 @@
+import { AuthenticationService } from './Services/authentication.service';
+import { AuthenticationGuard } from './Services/authenticationGuard.service';
+import { ImageService } from './Services/image.service';
+import { FileService } from './Services/file.service';
+import { ToastService } from './Services/toast.service';
+import { ContactMeService } from './Services/ContactMeService';
+import { SelectService } from './Services/select.service';
+import { ServicerequestService } from './Services/servicerequest.service';
+import { CustomvalidationService } from './Services/customvalidation.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ReactiveFormsModule } from '@angular/forms';
+import {NavbarComponent} from './navbar/navbar.component';
+
+
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+
+
+
+import { GalleryComponent } from './gallery/gallery.component';
+
+import { ImageDetailComponent } from './image/image-detail.component';
+
+import { appRoutes } from '../routes';
+import { LoginComponent } from './login/login.component';
+import { UploadComponent } from './upload/upload.component';
+import { ContactmeComponent } from './contactme/contactme.component';
+import { AboutmeComponent } from './aboutme/aboutme.component';
+import { RequestListComponent } from './request-list/request-list.component';
+import { ToastComponent } from './toast/toast.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+
+
+
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GalleryComponent,
+    NavbarComponent,
+    ImageDetailComponent,
+    LoginComponent,
+    UploadComponent,
+    ContactmeComponent,
+    AboutmeComponent,
+    RequestListComponent,
+    ToastComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    ReactiveFormsModule,
+    HttpModule,
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbEvaIconsModule
+
   ],
-  providers: [],
+  providers: [AuthenticationGuard,
+     AuthenticationService,
+      SelectService,
+       ImageService,
+        FileService,
+         ContactMeService,
+         ToastService,
+          ServicerequestService,
+          CustomvalidationService,
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
