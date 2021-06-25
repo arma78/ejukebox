@@ -1,0 +1,116 @@
+<h3 style="text-align:center;">
+  <b style="color: black">Tattoo Request Form</b>
+</h3>
+<div class="container">
+
+  <form #f="ngForm" (ngSubmit)="f.form.valid && f.form.dirty ? onSubmit() : ''" validate>
+  <div id="caption">
+          <div class="form-group">
+            <label>First Name</label>
+            <input class="form-control" #firstName="ngModel"  name="firstName" [(ngModel)]="contactMe.firstName"
+              placeholder="First Name" required>
+              <div [hidden]="firstName.valid || firstName.pristine"
+              class="alert alert-danger">
+               <div [hidden]="!firstName.hasError('required')">First Name is required</div>
+           </div>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input class="form-control" #lastName="ngModel"  name="lastName" [(ngModel)]="contactMe.lastName"  placeholder="Last Name"
+              required>
+              <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+                   <div [hidden]="!lastName.hasError('required')">Last Name is required</div>
+              </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input class="form-control"  #phoneNumber="ngModel" name="phoneNumber"  [(ngModel)]="contactMe.phoneNumber"
+              placeholder="Phone Number"  pattern="[0-9]*"
+              minlength="9"
+              maxlength="14"
+              required
+              >
+              <div [hidden]="phoneNumber.valid || phoneNumber.pristine"
+                 class="alert alert-danger">
+                 <div [hidden]="!phoneNumber.hasError('minlength')">Phone Number should be 9 digit min</div>
+                 <div [hidden]="!phoneNumber.hasError('required')">Phone Number is required</div>
+                 <div [hidden]="!phoneNumber.hasError('pattern')">phone Number should be only numbers</div>
+              </div>
+
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input class="form-control"  name=email #email="ngModel"  placeholder="Email" [(ngModel)]="contactMe.email" required>
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                <div [hidden]="!email.hasError('required')">E-mail is required</div>
+           </div>
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input class="form-control"  name="city" #city="ngModel"  placeholder="City" [(ngModel)]="contactMe.city" required>
+            <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+                <div [hidden]="!city.hasError('required')">City is required</div>
+           </div>
+          </div>
+          <div class="form-group">
+            <label>Request Comments</label>
+            <textarea class="form-control"  #comments="ngModel" name="comments"  [(ngModel)]="contactMe.comments"  placeholder="Comments here"
+              required></textarea>
+              <div [hidden]="comments.valid || comments.pristine" class="alert alert-danger">
+                  <div [hidden]="!comments.hasError('required')">Comments are required</div>
+             </div>
+             </div>
+          <div class="form-group">
+            <label>Tattoo Type</label>
+            <select class="form-control"   name="tattooType" #tattooType="ngModel" [(ngModel)]="contactMe.tattooType" >
+              <option value="Geometric">Geometric</option>
+              <option value="Mainstream">Mainstream</option>
+              <option value="Lettering">Lettering</option>
+              <option value="Realistic">Realistic</option>
+              <option value="Water Color">Water Color</option>
+              <option value="Black Work">Black Work</option>
+              <option value="Japanese">Japanese</option>
+              <option value="New School">New School</option>
+              <option value="Old School">Old School</option>
+              <option value="Tribals">Tribals</option>
+            </select>
+            <div [hidden]="tattooType.valid || tattooType.pristine" class="alert alert-danger">
+                <div [hidden]="!tattooType.hasError('required')">Tattoo type is required</div>
+           </div>
+          </div>
+          <div class="form-group">
+            <label>Tattoo Width (in cm)</label>
+              <input class="form-control"   name="sizeWidth" #sizeWidth="ngModel"  [(ngModel)]="contactMe.sizeWidth"
+                placeholder="Size Width"
+                required
+                pattern="[0-9]*"
+                minlength="2"
+                maxlength="2">
+                <div [hidden]="sizeWidth.valid || sizeWidth.pristine" class="alert alert-danger">
+                    <div [hidden]="!sizeWidth.hasError('required')">Size width is required</div>
+                    <div [hidden]="!sizeWidth.hasError('minlength')">Size width should be 2 digit min</div>
+                    <div [hidden]="!sizeWidth.hasError('pattern')">Size width should be only numbers</div>
+                 </div>
+          </div>
+          <div class="form-group">
+                <label>Tattoo Height (in cm)</label>
+                 <input class="form-control"  name="sizeHeight" #sizeHeight="ngModel"  [(ngModel)]="contactMe.sizeHeight"
+                    placeholder="Size Height" required
+                    pattern="[0-9]*"
+                    minlength="2"
+                    maxlength="2">
+                    <div [hidden]="sizeHeight.valid || sizeHeight.pristine" class="alert alert-danger">
+                        <div [hidden]="!sizeHeight.hasError('required')">Size height is required</div>
+                        <div [hidden]="!sizeHeight.hasError('minlength')">Size height should be 2 digit min</div>
+                        <div [hidden]="!sizeHeight.hasError('pattern')">Size height should be only numbers</div>
+
+                   </div>
+          </div>
+    </div>
+    <hr>
+    <input type="submit"
+    [disabled]="!f.form.valid" class="btn btn-success">
+  </form>
+</div>
+
+
