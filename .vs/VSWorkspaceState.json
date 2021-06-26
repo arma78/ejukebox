@@ -3,8 +3,11 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\ejuboxplayer"
+    "\\src\\app\\ejuboxplayer",
+    "\\src\\app\\gallery",
+    "\\src\\app\\models",
+    "\\src\\app\\Services"
   ],
-  "SelectedNode": "\\src\\app\\ejuboxplayer\\ejuboxplayer.component.ts",
+  "SelectedNode": "\\src\\app\\songGenre.ts",
   "PreviewInSolutionExplorer": false
 }

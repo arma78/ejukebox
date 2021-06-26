@@ -13,14 +13,18 @@ export class SongListService {
 
 
 
-  getImageDetailList(): AngularFireList<SongList[]> {
-    return this.db.list('/songlist');
+  getImageDetailList(cat: any): AngularFireList<SongList[]> {
+    return this.db.list('/songlist', ref => ref.orderByChild('genrecategory').equalTo(cat));
   }
 
   // tslint:disable-next-line:typedef
-  getFilteredImages(cat: any, subcat: any): AngularFireList<SongList[]> {
-    return this.db.list('/songlist', ref => ref.orderByChild('category').equalTo(cat).ref.orderByChild('subcategory').equalTo(subcat));
+  getFilteredImages(cat: any): AngularFireList<SongList[]> {
+    console.log("heya");
+    return this.db.list('/songlist', ref => ref.orderByChild('genrecategory').equalTo(cat));
   }
+
+
+ 
 
   // tslint:disable-next-line:typedef
   getImage(key: string) {
