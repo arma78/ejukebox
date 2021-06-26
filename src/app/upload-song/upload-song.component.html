@@ -1,0 +1,47 @@
+<br />
+<br />
+<h2 style="color: black; text-align: center"><b>Upload song to database</b></h2>
+
+
+
+
+<table style="width:100%">
+  <tr>
+    <td><label style="color: black; font-weight: bold">Genre:</label></td>
+    <td>
+      <select class='dropdowngall' [(ngModel)]="selectedCategory.id" (change)="onSelect($event.target.value)">
+        <option value="Select">Select</option>
+        <option *ngFor="let genrecategory of genrecat" value={{genrecategory.id}}>{{genrecategory.name}}</option>
+      </select><b style="color: red">*</b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <label style="color: black; font-weight: bold">Song Title:</label>
+    </td>
+    <td><input class='captionSUb' minlength="3" type="text" name="id" [(ngModel)]="id"><b style="color: red">*</b></td>
+  </tr>
+  <tr>
+    <td><label style="color: black; font-weight: bold">Artist:</label></td>
+    <td><input class='artist' minlength="3" type="text" name="artist" [(ngModel)]="artist"><b style="color: red">*</b></td>
+  </tr>
+  <tr>
+    <td>
+      <label style="color: black; font-weight: bold">Tonality:</label>
+    </td>
+    <td>
+      <input class='tonality' minlength="3" type="text" name="tonality" [(ngModel)]="tonality"><b style="color: red">*</b>
+    </td>
+  </tr>
+</table>
+<br />
+<input type="file" (change)="showPreview($event)"><b style="color: red">*</b>
+<br />
+<div class="progress" *ngIf="uploadProgress$ | async as progress">
+  <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>
+</div>
+<br />
+<button [hidden]="this.SaveDisabled" class="btn-success" (click)="save()">Save Song</button>
+<br />
+<hr>
+

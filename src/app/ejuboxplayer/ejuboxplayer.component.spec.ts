@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { UploadComponent } from './upload.component';
+import { EjuboxplayerComponent } from './ejuboxplayer.component';
 
-describe('UploadComponent', () => {
-  let component: UploadComponent;
-  let fixture: ComponentFixture<UploadComponent>;
+describe('EjuboxplayerComponent', () => {
+  let component: EjuboxplayerComponent;
+  let fixture: ComponentFixture<EjuboxplayerComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadComponent ]
+      declarations: [ EjuboxplayerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UploadComponent);
+    fixture = TestBed.createComponent(EjuboxplayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

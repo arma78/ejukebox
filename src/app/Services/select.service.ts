@@ -1,12 +1,35 @@
 import { Injectable, Inject } from '@angular/core';
 import { ArtCategory } from '../artcategory';
 import { ArtSubCategory } from '../artSubCategory';
+import { SongGenre } from '../songGenre';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SelectService {
 
+  // tslint:disable-next-line:typedef
+  getSongGenre() {
+    return [
+      new SongGenre('Pop', 'Pop'),
+      new SongGenre('Rock', 'Rock'),
+      new SongGenre('Heavy Metal', 'Heavy Metal'),
+      new SongGenre('Hard Rock', 'Hard Rock'),
+      new SongGenre('Blues', 'Blues'),
+      new SongGenre('Techno', 'Techno'),
+      new SongGenre('Jazz', 'Jazz'),
+      new SongGenre('Hard Rock', 'Hard Rock'),
+      new SongGenre('Reggae', 'Reggae'),
+      new SongGenre('Punk', 'Punk'),
+      new SongGenre('Hip Hop', 'Hip Hop'),
+      new SongGenre('Hard Rock', 'Hard Rock'),
+      new SongGenre('Funk', 'Funk'),
+      new SongGenre('Disco', 'Disco'),
+      new SongGenre('Grunge', 'Grunge'),
+      new SongGenre('Hard Rock', 'Hard Rock'),
+      new SongGenre('Drum and Bass', 'Drum and Bass'),
+    ];
+  }
   // tslint:disable-next-line:typedef
   getArtCategory() {
     return [
