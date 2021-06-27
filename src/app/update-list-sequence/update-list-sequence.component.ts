@@ -1,20 +1,20 @@
-import { Component, OnInit, OnChanges} from '@angular/core';
-import { Track } from 'ngx-audio-player';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { SongListService } from '../Services/songlist.service';
 import { SongGenre } from '../songGenre';
 import { SelectService } from '../Services/select.service';
+
 @Component({
-  selector: 'app-ejuboxplayer',
-  templateUrl: './ejuboxplayer.component.html',
-  styleUrls: ['./ejuboxplayer.component.scss']
+  selector: 'app-update-list-sequence',
+  templateUrl: './update-list-sequence.component.html',
+  styleUrls: ['./update-list-sequence.component.scss']
 })
-export class EjuboxplayerComponent implements OnInit, OnChanges {
+export class UpdateListSequenceComponent implements OnInit, OnChanges {
   fileUploads = [];
   selectedCategory: SongGenre = new SongGenre('Pop', 'Pop');
   genrecat: SongGenre[];
+  page = 1;
+  pageSize = 9;
   constructor(private songlistservice: SongListService, private selectService: SelectService) { }
-  msaapPlaylist: Track[] = [];
-  // tslint:disable-next-line:typedef
   ngOnInit() {
     this.genrecat = this.selectService.getSongGenre();
     this.onSelect(this.selectedCategory.id);
@@ -25,30 +25,29 @@ export class EjuboxplayerComponent implements OnInit, OnChanges {
     this.onSelect(this.selectedCategory.id);
   }
 
+  public open(event, key) {
+    console.log(event.target.value);
+    this.songlistservice.setSongSequence(key, event.target.value);
+  }
 
   // tslint:disable-next-line:typedef
   onSelect(Categoryid) {
-    
+
     this.selectedCategory = new SongGenre(Categoryid, Categoryid);
     this.getFilteredList();
   }
 
-
+  // tslint:disable-next-line:typedef
+  deleteFileUpload(fileUploads) {
+    this.songlistservice.deleteFileUpload(fileUploads);
+  }
   // tslint:disable-next-line:typedef
   getAllList() {
     this.songlistservice.getImageDetailList(this.selectedCategory.id).snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }).subscribe((fileUploads: any) => {
-      this.msaapPlaylist = [];
       this.fileUploads = fileUploads;
       this.fileUploads = this.fileUploads.sort((a, b) => a.sequence - b.sequence); 
-      for (var i = 0; i < this.fileUploads.length; i++) {
-        this.msaapPlaylist.push({
-          title: this.fileUploads[i].id,
-          link: this.fileUploads[i].url,
-          artist: this.fileUploads[i].artist,
-        });
-      }
     });
   }
 
@@ -60,30 +59,6 @@ export class EjuboxplayerComponent implements OnInit, OnChanges {
 
       this.fileUploads = fileUploads;
       this.fileUploads = this.fileUploads.sort((a, b) => a.sequence - b.sequence); 
-      this.msaapPlaylist = [];
-      for (var i = 0; i < this.fileUploads.length; i++) {
-        this.msaapPlaylist.push({
-          title: this.fileUploads[i].id,
-          link: this.fileUploads[i].url,
-          artist: this.fileUploads[i].artist,
-        });
-      }
     });
   }
-
-
-
-  msaapDisplayTitle = true;
-  msaapDisplayPlayList = true;
-  msaapPageSizeOptions = [2, 4, 6];
-  msaapDisplayVolumeControls = true;
-  msaapDisplayRepeatControls = true;
-  msaapDisplayArtist = true;
-  msaapDisplayDuration = false;
-  msaapDisablePositionSlider = false;
-
-  
-  
-
-
 }

@@ -4,6 +4,6 @@ export interface SongList {
   url: string;
   file: File;
   artist: string;
-  tonality: string;
+  sequence: string;
   genre: string;
 }

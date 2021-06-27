@@ -12,7 +12,7 @@ export class FileSongService {
   imageDetailList: AngularFireList<any>;
   private basePath = '/songlist';
   fileList: any[];
-  dataSet: Data = {id: '', url: '', genrecategory: '', tonality: '', artist:''};
+  dataSet: Data = {id: '', url: '', genrecategory: '', sequence: '', artist:''};
 
 
 
@@ -33,7 +33,7 @@ export class FileSongService {
     this.imageDetailList = this.fire.list('songlist');
   }
 
-  insertImageDetails(id, url, genrecategory, tonality, artist) {
+  insertImageDetails(id, url, genrecategory, sequence, artist) {
     this.dataSet = {
       // tslint:disable-next-line:object-literal-shorthand
       id: id,
@@ -42,7 +42,7 @@ export class FileSongService {
       // tslint:disable-next-line:object-literal-shorthand
       genrecategory: genrecategory,
       // tslint:disable-next-line:object-literal-shorthand
-      tonality: tonality,
+      sequence: sequence,
       // tslint:disable-next-line:object-literal-shorthand
       artist: artist
 
@@ -109,7 +109,7 @@ export interface Data {
   // tslint:disable-next-line:no-inferrable-types
   genrecategory: string;
   // tslint:disable-next-line:no-inferrable-types
-  tonality: string;
+  sequence: string;
   // tslint:disable-next-line:no-inferrable-types
   artist: string;
 }

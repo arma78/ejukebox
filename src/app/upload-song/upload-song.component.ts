@@ -28,7 +28,7 @@ export class UploadSongComponent implements OnInit, OnChanges {
   file: string;
   genrecategory: string;
   artist: string;
-  tonality: string;
+  sequence: string;
   fileUploads: any[];
   constructor(public toastService: ToastService,
     private selectService: SelectService,
@@ -107,7 +107,7 @@ export class UploadSongComponent implements OnInit, OnChanges {
         fileRef.getDownloadURL().subscribe((url) => {
           this.url = url;
           this.genrecategory = this.selectedCategory.id.toString();
-          this.filesongService.insertImageDetails(this.id, this.url, this.genrecategory, this.tonality,this.artist);
+          this.filesongService.insertImageDetails(this.id, this.url, this.genrecategory, this.sequence,this.artist);
           this.showSuccess();
         });
       })

@@ -9,14 +9,15 @@
     <ul class="navbar-nav mr-auto" *ngIf="(user | async)?.uid">
       <li class="nav-item"><a class="nav-link" routerLink="/upload">Upload</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/request-list">Customer Requests</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/ejuboxplayer">E-Jukebox</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/video-gallery">Video Gallery</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/upload-song">Song Upload</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/update-list-sequence">Song List Sequencing</a></li>
     </ul>
     <ul class="nav navbar-nav account">
       <li class="nav-item"><a class="nav-link" routerLink="/aboutme">About me</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/contactme">Contact me</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/gallery">Art Gallery</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/ejuboxplayer">E-Jukebox</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/video-gallery">Video Gallery</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/upload-song">Song Upload</a></li>
       <li class="nav-item" *ngIf="!(user | async)?.uid"><a class="nav-link" routerLink="/login">Log In</a></li>
       <li class="nav-item" *ngIf="(user | async)?.uid"><a class="nav-link" href="#" (click)="logOut()">Log Out</a></li>
     </ul>

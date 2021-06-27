@@ -10,6 +10,7 @@ import { AboutmeComponent } from './app/aboutme/aboutme.component';
 import { RequestListComponent } from './app/request-list/request-list.component';
 import { AuthenticationGuard } from './app/Services/authenticationGuard.service';
 import { VideoGalleryComponent } from './app/video-gallery/video-gallery.component';
+import { UpdateListSequenceComponent } from './app/update-list-sequence/update-list-sequence.component';
 import { UploadSongComponent } from './app/upload-song/upload-song.component';
 export const appRoutes: Routes = [
   { path: 'gallery', component: GalleryComponent},
@@ -17,9 +18,10 @@ export const appRoutes: Routes = [
   { path: 'request-list', component: RequestListComponent, canActivate: [AuthenticationGuard]},
   { path: 'contactme', component: ContactmeComponent },
   { path: 'aboutme', component: AboutmeComponent },
-  { path: 'ejuboxplayer', component: EjuboxplayerComponent },
-  { path: 'video-gallery', component: VideoGalleryComponent },
-  { path: 'upload-song', component: UploadSongComponent },
+  { path: 'ejuboxplayer', component: EjuboxplayerComponent, canActivate: [AuthenticationGuard]},
+  { path: 'video-gallery', component: VideoGalleryComponent, canActivate: [AuthenticationGuard]},
+  { path: 'upload-song', component: UploadSongComponent, canActivate: [AuthenticationGuard]},
+  { path: 'update-list-sequence', component: UpdateListSequenceComponent, canActivate: [AuthenticationGuard]},
   { path: 'image/:id', component: ImageDetailComponent},
   { path: '', redirectTo: '/gallery', pathMatch: 'full' },
   { path: 'login', component: LoginComponent }

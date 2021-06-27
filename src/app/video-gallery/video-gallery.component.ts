@@ -20,7 +20,7 @@ export class VideoGalleryComponent implements OnInit {
     }
   ];
 
-  activeIndex = 0;
+   activeIndex = 0;
   currentVideo = this.videoItems[this.activeIndex];
   data;
 

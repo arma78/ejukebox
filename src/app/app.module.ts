@@ -51,6 +51,7 @@ import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@n
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { VideoGalleryComponent } from './video-gallery/video-gallery.component';
 import { UploadSongComponent } from './upload-song/upload-song.component';
+import { UpdateListSequenceComponent } from './update-list-sequence/update-list-sequence.component';
 
 
 
@@ -72,6 +73,7 @@ import { UploadSongComponent } from './upload-song/upload-song.component';
     ToastComponent,
     VideoGalleryComponent,
     UploadSongComponent,
+    UpdateListSequenceComponent,
   ],
   imports: [
     VgCoreModule,
