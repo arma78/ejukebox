@@ -30,6 +30,7 @@ export class UploadSongComponent implements OnInit, OnChanges {
   artist: string;
   sequence: string;
   fileUploads: any[];
+  findMaxSequence: any[];
   constructor(public toastService: ToastService,
     private selectService: SelectService,
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
@@ -37,10 +38,21 @@ export class UploadSongComponent implements OnInit, OnChanges {
     private songService: SongListService) { }
   isTemplate(toast) { return toast.textOrTpl instanceof TemplateRef; }
   ngOnInit() {
+    this.maxSequence();
     this.genrecat = this.selectService.getSongGenre();
-    console.log(this.genrecat);
     this.filesongService.getImageDetailList();
     this.selectedImage = null;
+  }
+
+  maxSequence()
+  {
+    this.filesongService.getSequence().snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }).subscribe( (findMaxSequence:any) => {
+      this.findMaxSequence = findMaxSequence.sort((a, b) => b.sequence - a.sequence);
+      this.sequence = (+this.findMaxSequence[0]['sequence'] + 1).toString();
+    });
+
   }
 
   // tslint:disable-next-line:typedef
@@ -50,6 +62,7 @@ export class UploadSongComponent implements OnInit, OnChanges {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }).subscribe(fileUploads => {
       this.fileUploads = fileUploads;
+
     });
   }
   // tslint:disable-next-line:typedef
@@ -64,6 +77,13 @@ export class UploadSongComponent implements OnInit, OnChanges {
       autohide: true
     });
   }
+
+  // tslint:disable-next-line:typedef
+  onSelect(subCategoryid) {
+
+  }
+
+
 
   // tslint:disable-next-line:typedef
   showSuccess() {

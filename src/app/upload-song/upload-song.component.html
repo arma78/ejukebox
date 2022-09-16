@@ -4,7 +4,7 @@
 
 
 
-
+<div id="caption">
 <table style="width:100%">
   <tr>
     <td><label style="color: black; font-weight: bold">Genre:</label></td>
@@ -12,30 +12,33 @@
       <select class='dropdowngall' [(ngModel)]="selectedCategory.id" (change)="onSelect($event.target.value)">
         <option value="Select">Select</option>
         <option *ngFor="let genrecategory of genrecat" value={{genrecategory.id}}>{{genrecategory.name}}</option>
-      </select><b style="color: red">*</b>
+      </select>
     </td>
   </tr>
   <tr>
     <td>
      <label style="color: black; font-weight: bold">Song Title:</label>
     </td>
-    <td><input class='captionSUb' minlength="3" type="text" name="id" [(ngModel)]="id"><b style="color: red">*</b></td>
+    <td><input class='captionSUb' minlength="3" type="text" name="id" [(ngModel)]="id"></td>
   </tr>
   <tr>
     <td><label style="color: black; font-weight: bold">Artist:</label></td>
-    <td><input class='artist' minlength="3" type="text" name="artist" [(ngModel)]="artist"><b style="color: red">*</b></td>
+    <td><input class='artist' minlength="3" type="text" name="artist" [(ngModel)]="artist"></td>
   </tr>
   <tr>
     <td>
       <label style="color: black; font-weight: bold">Sequence:</label>
     </td>
     <td>
-      <input class='sequence' minlength="1" type="text" name="sequence" [(ngModel)]="sequence"><b style="color: red">*</b>
+      <input class='sequence' readonly="true" disabled="true" value={{sequence}} minlength="1" type="text" name="sequence" [(ngModel)]="sequence">
     </td>
   </tr>
 </table>
+</div>
 <br />
-<input type="file" (change)="showPreview($event)"><b style="color: red">*</b>
+<div id="caption">
+<input type="file" (change)="showPreview($event)">
+</div>
 <br />
 <div class="progress" *ngIf="uploadProgress$ | async as progress">
   <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>

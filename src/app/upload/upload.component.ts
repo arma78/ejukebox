@@ -1,24 +1,27 @@
 
 import * as _ from 'lodash';
-import { Component, Inject, OnInit, OnChanges, TemplateRef } from '@angular/core';
+import { Component, Inject, OnInit, OnChanges, TemplateRef, ElementRef } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { finalize, map } from 'rxjs/operators';
 import { FileService } from '../Services/file.service';
 import { ArtCategory } from '../artcategory';
 import { ArtSubCategory } from '../artSubCategory';
+import { MaskedDateTimeService } from '@syncfusion/ej2-angular-calendars';
 import { SelectService } from '../Services/select.service';
 import { ImageService } from '../Services/image.service';
 import { ToastService } from '../Services/toast.service';
 import { Observable } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
+  providers: [MaskedDateTimeService],
 })
 export class UploadComponent implements OnInit, OnChanges {
-  // tslint:disable-next-line:no-inferrable-types
+
   SaveDisabled: boolean = false;
   uploadProgress$: Observable<number>;
   task: AngularFireUploadTask;
@@ -28,17 +31,27 @@ export class UploadComponent implements OnInit, OnChanges {
   artsubcat: ArtSubCategory[];
   selectedImage: any;
   url: string;
+  eventDate: any;
   id: string;
   file: string;
   category: string;
   subcategory: string;
   fileUploads: any[];
+  fileUploads2: any[];
+  showhide1:any;
+  showhide2:any;
+  changedDT:any;
+  selectedEvent:string;
+
+  public format: string = "dd/MM/yyyy";
+  public enableMaskSupport: boolean = true;
   // tslint:disable-next-line:max-line-length
   constructor(public toastService: ToastService,
     private selectService: SelectService, @Inject(AngularFireStorage)
     private storage: AngularFireStorage, @Inject(FileService)
     private fileService: FileService,
-    private imageService: ImageService) { }
+    private imageService: ImageService) {  
+     }
   // tslint:disable-next-line:typedef
   isTemplate(toast) { return toast.textOrTpl instanceof TemplateRef; }
   /* tslint:disable use-lifecycle-interface */
@@ -49,7 +62,39 @@ export class UploadComponent implements OnInit, OnChanges {
     this.selectSubVal = '';
     this.fileService.getImageDetailList();
     this.selectedImage = null;
+    this.eventDate = null;
+    this.changedDT = null;
+    this.getAllList();
   }
+
+
+  showhideradio(e){
+    console.log(e.target.value);
+    if(e.target.value == 1){
+    this.showhide1 = true;
+    this.showhide2 = false;
+    }
+    else if (e.target.value == 2){
+    this.showhide1 = false;
+    this.showhide2 = true;
+    }
+   }
+
+   onSelect2(e:any)
+{
+   this.selectedEvent = e.target.value;
+}
+    // tslint:disable-next-line:typedef
+    getAllList() {
+      // Use snapshotChanges().map() to store the key
+      this.imageService.getImageDetailList().snapshotChanges().map(changes => {
+       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+     }).subscribe((fileUploads2: any) => {
+
+       this.fileUploads2 = fileUploads2.sort((a, b) => (a.eventDate < b.eventDate) ? 1 : -1);
+
+     });
+   }
 
 
   // tslint:disable-next-line:typedef
@@ -78,6 +123,11 @@ export class UploadComponent implements OnInit, OnChanges {
     });
   }
 
+  changeDate(e) {
+  this.changedDT = e.value;
+  this.changedDT = new Date(this.changedDT).getTime();
+  }
+
   // tslint:disable-next-line:typedef
   showSuccess() {
     this.toastService.show('You have successfully added image to database!', {
@@ -96,20 +146,42 @@ export class UploadComponent implements OnInit, OnChanges {
       headertext: 'Error!!!'
     });
   }
-  // tslint:disable-next-line:typedef
+
+  save2() {
+
+    if (this.selectedImage === null ||
+      this.selectedEvent === 'undefined' || this.selectedEvent === '') {
+        return this.showError();
+      }
+      else {
+      let name = this.selectedImage.name;
+      this.SaveDisabled = true;
+      const fileRef = this.storage.ref(name);
+      const task = this.storage.upload(name, this.selectedImage);
+      this.uploadProgress$ = task.percentageChanges();
+      this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.url = url;
+            this.id = this.selectedEvent;
+            this.fileService.insertGalleryDetails(this.id, this.url);
+            this.showSuccess();
+          });
+        })
+      ).subscribe();
+      this.SaveDisabled = false;
+      }
+
+  }
+
   save() {
-
-
     if (this.selectedImage === null ||
     this.id === 'undefined' ||
     this.selectSubVal === ''
     ) {
       return this.showError();
     }
-
-
-
-    // tslint:disable-next-line:prefer-const
+    else {
     let name = this.selectedImage.name;
     this.SaveDisabled = true;
     const fileRef = this.storage.ref(name);
@@ -121,14 +193,17 @@ export class UploadComponent implements OnInit, OnChanges {
           this.url = url;
           this.category = this.selectedCategory.id.toString();
           this.subcategory = this.selectSubVal;
-          this.fileService.insertImageDetails(this.id, this.url, this.category, this.subcategory);
+          this.fileService.insertImageDetails(this.id, this.url, this.category, this.subcategory, this.changedDT.toString());
           this.showSuccess();
         });
       })
     ).subscribe();
     this.SaveDisabled = false;
+    }
 
   }
+
+
 
   // tslint:disable-next-line:typedef
   deleteFileUpload(fileUploads) {

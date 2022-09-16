@@ -1,0 +1,48 @@
+<h3 style="text-align:center;">
+    <b style="color: black">Song Request Form</b>
+</h3>
+<div class="container">
+    <div id="caption">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && f.form.dirty ? onSubmit() : ''" validate>
+
+
+                <div class="form-group">
+                  <label>Name</label>
+                  <input class="form-control" #Name="ngModel" name="Name" [(ngModel)]="requestSong.Name"
+                    placeholder="Enter your name" required>
+                  <div [hidden]="Name.valid || Name.pristine" class="alert alert-danger"></div>
+                  <div [hidden]="!Name.hasError('required')">Your name is required field</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Song Name</label>
+                    <input class="form-control" #SongName="ngModel" name="SongName" [(ngModel)]="requestSong.SongName"
+                        placeholder="Enter song name" required>
+                    <div [hidden]="SongName.valid || SongName.pristine" class="alert alert-danger"></div>
+                    <div [hidden]="!SongName.hasError('required')">Song Name is required field</div>
+                </div>
+
+                <div class="form-group">
+                              <label>Performed By</label>
+                              <input class="form-control" #PerformedBy="ngModel" name="PerformedBy"
+                                [(ngModel)]="requestSong.PerformedBy" placeholder="Enter performed by" required>
+                            <div [hidden]="PerformedBy.valid || PerformedBy.pristine" class="alert alert-danger"></div>
+                            <div [hidden]="!PerformedBy.hasError('required')">Performed By is required field</div>
+                </div>
+
+                       <div class="form-group">
+                            <label>Validation Code</label>
+                            <input class="form-control" #ValidationCode="ngModel" (change)="CharacterEnter($event)" name="ValidationCode"
+                                [(ngModel)]="requestSong.ValidationCode" placeholder="Enter 6 character code."
+                                 minlength="6" maxlength="6" required>
+                            <div [hidden]="ValidationCode.valid || ValidationCode.pristine" class="alert alert-danger">
+                                <div [hidden]="!ValidationCode.hasError('minlength')">Validation code should be 6 digit long.</div>
+                                <div [hidden]="!ValidationCode.hasError('required')">Validation code is required</div>
+                                <div [hidden]="!ValidationCode.hasError('pattern')">Validation code should be only numbers</div>
+                            </div>
+
+                        </div>
+                    <input type="submit" [disabled]="!f.form.valid" class="btn btn-success">
+    </form>
+</div>
+</div>

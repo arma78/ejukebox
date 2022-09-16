@@ -1,89 +1,116 @@
-import { Component, OnInit, OnChanges} from '@angular/core';
-import { Track } from 'ngx-audio-player';
+import { Component, OnInit, OnChanges, ViewChild} from '@angular/core';
 import { SongListService } from '../Services/songlist.service';
-import { SongGenre } from '../songGenre';
+import { SharedServiceService} from "../Services/shared-service.service";
 import { SelectService } from '../Services/select.service';
+import {Track,AudioPlayerComponent,NgxAudioPlayerModule} from 'ngx-audio-player';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-ejuboxplayer',
   templateUrl: './ejuboxplayer.component.html',
-  styleUrls: ['./ejuboxplayer.component.scss']
+  styleUrls: ['./ejuboxplayer.component.scss'],
+  providers: [AudioPlayerComponent],
 })
 export class EjuboxplayerComponent implements OnInit, OnChanges {
   fileUploads = [];
-  selectedCategory: SongGenre = new SongGenre('Pop', 'Pop');
-  genrecat: SongGenre[];
-  constructor(private songlistservice: SongListService, private selectService: SelectService) { }
+  currentTime: any;
+  message:string;
+
+  constructor(private apc: AudioPlayerComponent,private sharedService:  SharedServiceService, private songlistservice: SongListService, private selectService: SelectService)
+  {
+  }
+  @ViewChild('player', { static: false })
+
+  ngm: NgxAudioPlayerModule
   msaapPlaylist: Track[] = [];
+
+
   // tslint:disable-next-line:typedef
   ngOnInit() {
-    this.genrecat = this.selectService.getSongGenre();
-    this.onSelect(this.selectedCategory.id);
+    this.sharedService.removeTrackerService();
     this.getAllList();
-  }
+
+   }
   // tslint:disable-next-line:typedef
   ngOnChanges() {
-    this.onSelect(this.selectedCategory.id);
+    console.log('Jupi');
+
+   }
+
+
+
+
+
+
+  onEnded(event) {
+
+    var list = "";
+       setTimeout(() => {
+      list = document.getElementsByTagName("marquee")[0].innerHTML;
+             this.sharedService.currentlyplayTracker(list);
+
+    }, 2045);
+
   }
-
-
-  // tslint:disable-next-line:typedef
-  onSelect(Categoryid) {
-    
-    this.selectedCategory = new SongGenre(Categoryid, Categoryid);
-    this.getFilteredList();
-  }
-
 
   // tslint:disable-next-line:typedef
   getAllList() {
-    this.songlistservice.getImageDetailList(this.selectedCategory.id).snapshotChanges().map(changes => {
+      this.songlistservice.getCurrentPlayList().snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }).subscribe((fileUploads: any) => {
-      this.msaapPlaylist = [];
       this.fileUploads = fileUploads;
-      this.fileUploads = this.fileUploads.sort((a, b) => a.sequence - b.sequence); 
-      for (var i = 0; i < this.fileUploads.length; i++) {
+      this.fileUploads = this.fileUploads.sort((a, b) => a.sequence - b.sequence);
+    });
+  }
+
+
+
+
+    Test() {
+
+
+
+    }
+
+
+
+
+
+  LoadPlayList() {
+    this.msaapPlaylist = [];
+
+    for(var j = this.fileUploads.length -1; j >= 0 ; j--){
+      if(this.fileUploads[j].currentplaylist == 'false'){
+        this.fileUploads.splice(j, 1);
+      }
+  }
+
+    for (var i = 0; i < this.fileUploads.length; i++) {
         this.msaapPlaylist.push({
           title: this.fileUploads[i].id,
           link: this.fileUploads[i].url,
           artist: this.fileUploads[i].artist,
         });
-      }
-    });
+    }
   }
-
-  // tslint:disable-next-line:typedef
-  getFilteredList() {
-    this.songlistservice.getFilteredImages(this.selectedCategory.id).snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    }).subscribe((fileUploads: any) => {
-
-      this.fileUploads = fileUploads;
-      this.fileUploads = this.fileUploads.sort((a, b) => a.sequence - b.sequence); 
-      this.msaapPlaylist = [];
-      for (var i = 0; i < this.fileUploads.length; i++) {
-        this.msaapPlaylist.push({
-          title: this.fileUploads[i].id,
-          link: this.fileUploads[i].url,
-          artist: this.fileUploads[i].artist,
-        });
-      }
-    });
-  }
-
 
 
   msaapDisplayTitle = true;
   msaapDisplayPlayList = true;
-  msaapPageSizeOptions = [2, 4, 6];
+  msaapPageSizeOptions = [6, 4, 6];
   msaapDisplayVolumeControls = true;
   msaapDisplayRepeatControls = true;
   msaapDisplayArtist = true;
   msaapDisplayDuration = false;
   msaapDisablePositionSlider = false;
 
-  
-  
+
+
+
+
+
+
 
 
 }

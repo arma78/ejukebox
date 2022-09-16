@@ -26,8 +26,13 @@ export class UpdateListSequenceComponent implements OnInit, OnChanges {
   }
 
   public open(event, key) {
-    console.log(event.target.value);
     this.songlistservice.setSongSequence(key, event.target.value);
+  }
+  public AddToCurrentPL(event, key) {
+    this.songlistservice.setCurrentPL(key, 'true');
+  }
+  public RemoveFromCurrentPL(event, key) {
+    this.songlistservice.removeCetCurrentPL(key, 'false');
   }
 
   // tslint:disable-next-line:typedef

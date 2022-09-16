@@ -28,6 +28,7 @@
               "@firebase/performance",
               "@firebase/remote-config"
             ],
+            "preserveSymlinks": true,
             "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",

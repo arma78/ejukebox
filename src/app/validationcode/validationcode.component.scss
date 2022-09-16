@@ -1,0 +1,55 @@
+
+#img-thumbnail{
+    background-color: #efefef;
+    border:none;
+  }
+  #img-thumbnail > img,
+  #img-thumbnail a > img {
+    margin-right: auto;
+    margin-left: auto;
+    max-height:330px !important;
+    width: 100% !important;
+    border: 1px solid black !important;
+    border-radius: .65rem !important;
+    padding: .45rem !important;
+   }
+  #caption{
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid black !important;
+    border-radius: .65rem !important;
+    background-color:rgb(214, 94, 214);
+    color: black;
+    padding: .45rem !important;
+  }
+  hr {
+     margin-top: none;
+     margin-bottom: 0px;
+     border: 0px;
+     border-top: 1px solid #efefef;
+  }
+  .dropdowngall
+  {
+    background-color:rgb(214, 94, 214);
+    border-color:black;
+    border-width:1px;
+    color: white !important;
+  }
+  
+  .linkGallery
+  {
+    background-color:black;
+    border-color:rgb(214, 94, 214) !important;
+    border-width:1px;
+    color: rgb(214, 94, 214) !important;
+  }
+  
+  .btn-success {
+    color: white !important;
+    background-color: #007bff!important;
+    border-color: #007bff!important;
+  }
+  
+  
+  
+  

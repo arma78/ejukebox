@@ -1,0 +1,16 @@
+
+<div>
+<div class="row">
+    <div class="col-md-4"  *ngFor="let file of fileUploads">
+      <div class="img-thumbnail" id="img-thumbnail">
+          <hr id="spacer">
+          <div class="caption" id="caption">
+            <p><b>Validation Code: </b>{{file.id}}</p>
+            <p><b>Date Generated: </b>{{file.createdOn | date:'short'}}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  
+<button (click)="createCode()"  class="btn btn-success">Generate Validation Code</button>

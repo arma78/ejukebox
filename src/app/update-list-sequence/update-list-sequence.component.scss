@@ -1,0 +1,33 @@
+.btn-success {
+    color: white !important;
+    background-color: #007bff!important;
+    border-color: #007bff!important;
+    max-height: 24px;
+    font-size: small;
+  }
+  .btn-success1 {
+    color: white !important;
+    background-color: red!important;
+    border-color: #007bff!important;
+    font-size: small;
+    max-height: 24px;
+  }
+
+  .btn-success2 {
+    max-width: 60px!important;;
+    font-size: small;
+    max-height: 24px;
+  }
+
+  .parent {
+    display: flex;
+    flex-direction:row;
+    background: #d65ed6;
+    border: black;
+    border-width: 1px;
+    border-style: solid;
+  }
+  
+  .column {
+    flex: 1 1 0px;
+  }

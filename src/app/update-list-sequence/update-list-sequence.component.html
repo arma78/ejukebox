@@ -9,14 +9,20 @@
       </select><b style="color: red">*</b>
     </div>
     <br />
-    <div>
-      <ul *ngFor="let file of fileUploads | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-        <li class="caption" id="caption">
-          <p>
-            {{file.artist}} | {{file.id}}  | Song Sequence: <input max-width="100px" (change)="open($event, file.key)" type="number" value={{file.sequence}} /> | <button (click)='deleteFileUpload(file)' class="btn btn-danger btn-xs">Delete</button></p>
-      </ul>
+
+
+      <div class="parent" *ngFor="let file of fileUploads | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+        <div class="column">{{file.artist}} | {{file.id}}</div>
+        <div class="column">| Song Sequence: 
+          <input class="btn-success2"  (change)="open($event, file.key)" type="number" value={{file.sequence}} />
+          | Is in the current PL? <b>{{file.currentplaylist}}</b></div>
+        <div class="column"> | <button class="btn-success" (click)='AddToCurrentPL($event, file.key)' >Add to PL</button>
+          | <button class="btn-success" (click)='RemoveFromCurrentPL($event, file.key)' >Remove from PL</button>
+          | <button class="btn-success1" (click)='deleteFileUpload(file)' >Delete</button> </div>
     </div>
-    <ngb-pagination [(page)]="page"
+    <br>
+     
+   <ngb-pagination [(page)]="page"
                     [pageSize]="pageSize"
                     [collectionSize]="fileUploads?.length">
     </ngb-pagination>

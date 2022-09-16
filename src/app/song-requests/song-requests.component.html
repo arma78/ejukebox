@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-4" *ngFor="let req of serReq">
+      <div class="img-thumbnail" id="img-thumbnail">
+          <div class="caption" id="caption">
+            <p><b>Requested By:</b> {{req.Name}}</p>
+            <p><b>Song Title:</b> {{req.SongName}}</p>
+            <p><b>Artist:</b> {{req.PerformedBy}}</p>
+            <p><b>Validation Code:</b> {{req.ValidationCode}}</p>
+           </div>
+      </div>
+    </div>
+  </div>
+

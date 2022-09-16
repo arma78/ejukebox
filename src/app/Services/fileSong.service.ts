@@ -12,7 +12,7 @@ export class FileSongService {
   imageDetailList: AngularFireList<any>;
   private basePath = '/songlist';
   fileList: any[];
-  dataSet: Data = {id: '', url: '', genrecategory: '', sequence: '', artist:''};
+  dataSet: Data = {id: '', url: '', genrecategory: '', sequence: '', artist:'', currentplaylist:'false'};
 
 
 
@@ -44,7 +44,9 @@ export class FileSongService {
       // tslint:disable-next-line:object-literal-shorthand
       sequence: sequence,
       // tslint:disable-next-line:object-literal-shorthand
-      artist: artist
+      artist: artist,
+
+      currentplaylist:'false'
 
     };
     // tslint:disable-next-line:only-arrow-functions
@@ -66,6 +68,10 @@ export class FileSongService {
   getFilteredByCaption(file: any): AngularFireList<SongList[]> {
 
     return this.fire.list('/songlist', ref => ref.orderByChild('id').startAt(file).endAt(file + '\uF7FF'));
+  }
+
+  getSequence(): AngularFireList<SongList[]> {
+    return this.fire.list('/songlist', ref => ref.orderByChild('sequence'));
   }
 
 
@@ -112,4 +118,6 @@ export interface Data {
   sequence: string;
   // tslint:disable-next-line:no-inferrable-types
   artist: string;
+
+  currentplaylist:string;
 }

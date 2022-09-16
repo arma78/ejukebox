@@ -40,10 +40,6 @@ export class ContactmeComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       phoneNumber: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      city: ['', [Validators.required]],
-      tattooType: ['', [Validators.required]],
-      sizeWidth: ['', [Validators.required]],
-      sizeHeight: ['', [Validators.required]],
     }
     );
   }
@@ -67,22 +63,7 @@ export class ContactmeComponent implements OnInit {
   get comments() {
     return this.contactForm.get('comments');
   }
-  // tslint:disable-next-line:typedef
-  get city() {
-    return this.contactForm.get('city');
-  }
-  // tslint:disable-next-line:typedef
-  get tattooType() {
-    return this.contactForm.get('tattooType');
-  }
-  // tslint:disable-next-line:typedef
-  get sizeWidth() {
-    return this.contactForm.get('sizeWidth');
-  }
-  // tslint:disable-next-line:typedef
-  get sizeHeight() {
-    return this.contactForm.get('sizeHeight');
-  }
+
 
 
   // tslint:disable-next-line:typedef

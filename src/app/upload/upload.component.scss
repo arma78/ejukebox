@@ -18,13 +18,13 @@
   margin-left: auto;
   border: 1px solid black !important;
   border-radius: .65rem !important;
-  background-color:#28a745;
+  background-color:rgb(214, 94, 214);
   color: black;
   padding: .45rem !important;
 }
 .dropdowngall
 {
-  background-color:#28a745;
+  background-color:#007bff;
   border-color:black;
   border-width:1px;
   color: white !important;
@@ -33,16 +33,22 @@
   background-color:white;
   border-color:black;
   border-width:1px;
-  color: #28a745;
+  color: #007bff;
   min-width: 258px;
 }
 
 .progress-bar {
-  background-color: #28a745;
+  background-color: #007bff;
 }
 hr {
    margin-top: none;
    margin-bottom: 0px;
    border: 0px;
    border-top: 1px solid #efefef;
+}
+
+.btn-success {
+  color: white !important;
+  background-color: #007bff!important;
+  border-color: #007bff!important;
 }

@@ -1,7 +1,25 @@
 <h3 style="text-align:center;">
-  <b style="color: black">Tattoo Request Form</b>
+  <b style="color: black">Contact Us</b>
 </h3>
 <div class="container">
+  <div id="caption">
+    <div class="row">
+      <div class="col-sm">
+        <ul class="nav navbar-nav list-group list-group-vertical">
+          <li><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i><b>  Brighton Street 5, M34-3L4, Ottawa</b></li>
+          <li><i class="fa fa-clock-o fa-2x" aria-hidden="true"></i><b>  Monday to Friday (9:00 PM - 3:00 AM) </b></li>
+        </ul>
+      </div>
+      <div class="col-sm">
+        <ul class="nav navbar-nav list-group list-group-vertical">
+          <li><i class="fa fa-phone fa-2x" aria-hidden="true"></i><b>  +1 415 868 9493</b></li>
+          <li><i class="fa fa-envelope-open fa-2x" aria-hidden="true"></i><b>  info@goodlifeclub.com</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
 
   <form #f="ngForm" (ngSubmit)="f.form.valid && f.form.dirty ? onSubmit() : ''" validate>
   <div id="caption">
@@ -39,77 +57,27 @@
 
           </div>
           <div class="form-group">
-            <label>Email</label>
+            <label>E-mail</label>
             <input class="form-control"  name=email #email="ngModel"  placeholder="Email" [(ngModel)]="contactMe.email" required>
             <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
                 <div [hidden]="!email.hasError('required')">E-mail is required</div>
            </div>
           </div>
           <div class="form-group">
-            <label>City</label>
-            <input class="form-control"  name="city" #city="ngModel"  placeholder="City" [(ngModel)]="contactMe.city" required>
-            <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
-                <div [hidden]="!city.hasError('required')">City is required</div>
-           </div>
-          </div>
-          <div class="form-group">
-            <label>Request Comments</label>
-            <textarea class="form-control"  #comments="ngModel" name="comments"  [(ngModel)]="contactMe.comments"  placeholder="Comments here"
+            <label>Message</label>
+            <textarea class="form-control"  #comments="ngModel" name="comments"  [(ngModel)]="contactMe.comments"  placeholder="Message here"
               required></textarea>
               <div [hidden]="comments.valid || comments.pristine" class="alert alert-danger">
-                  <div [hidden]="!comments.hasError('required')">Comments are required</div>
+                  <div [hidden]="!comments.hasError('required')">Message is required field</div>
              </div>
-             </div>
-          <div class="form-group">
-            <label>Tattoo Type</label>
-            <select class="form-control"   name="tattooType" #tattooType="ngModel" [(ngModel)]="contactMe.tattooType" >
-              <option value="Geometric">Geometric</option>
-              <option value="Mainstream">Mainstream</option>
-              <option value="Lettering">Lettering</option>
-              <option value="Realistic">Realistic</option>
-              <option value="Water Color">Water Color</option>
-              <option value="Black Work">Black Work</option>
-              <option value="Japanese">Japanese</option>
-              <option value="New School">New School</option>
-              <option value="Old School">Old School</option>
-              <option value="Tribals">Tribals</option>
-            </select>
-            <div [hidden]="tattooType.valid || tattooType.pristine" class="alert alert-danger">
-                <div [hidden]="!tattooType.hasError('required')">Tattoo type is required</div>
            </div>
-          </div>
-          <div class="form-group">
-            <label>Tattoo Width (in cm)</label>
-              <input class="form-control"   name="sizeWidth" #sizeWidth="ngModel"  [(ngModel)]="contactMe.sizeWidth"
-                placeholder="Size Width"
-                required
-                pattern="[0-9]*"
-                minlength="2"
-                maxlength="2">
-                <div [hidden]="sizeWidth.valid || sizeWidth.pristine" class="alert alert-danger">
-                    <div [hidden]="!sizeWidth.hasError('required')">Size width is required</div>
-                    <div [hidden]="!sizeWidth.hasError('minlength')">Size width should be 2 digit min</div>
-                    <div [hidden]="!sizeWidth.hasError('pattern')">Size width should be only numbers</div>
-                 </div>
-          </div>
-          <div class="form-group">
-                <label>Tattoo Height (in cm)</label>
-                 <input class="form-control"  name="sizeHeight" #sizeHeight="ngModel"  [(ngModel)]="contactMe.sizeHeight"
-                    placeholder="Size Height" required
-                    pattern="[0-9]*"
-                    minlength="2"
-                    maxlength="2">
-                    <div [hidden]="sizeHeight.valid || sizeHeight.pristine" class="alert alert-danger">
-                        <div [hidden]="!sizeHeight.hasError('required')">Size height is required</div>
-                        <div [hidden]="!sizeHeight.hasError('minlength')">Size height should be 2 digit min</div>
-                        <div [hidden]="!sizeHeight.hasError('pattern')">Size height should be only numbers</div>
-
-                   </div>
-          </div>
+          
+           <hr>
+           <input type="submit"
+           [disabled]="!f.form.valid" class="btn btn-success">
+         
     </div>
-    <hr>
-    <input type="submit"
-    [disabled]="!f.form.valid" class="btn btn-success">
+   
   </form>
 </div>
 

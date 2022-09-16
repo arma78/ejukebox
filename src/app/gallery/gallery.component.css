@@ -18,7 +18,7 @@
   margin-left: auto;
   border: 1px solid black !important;
   border-radius: .65rem !important;
-  background-color:#28a745;
+  background-color:rgb(214, 94, 214);
   color: black;
   padding: .45rem !important;
 }
@@ -30,10 +30,24 @@ hr {
 }
 .dropdowngall
 {
-  background-color:#28a745;
+  background-color:rgb(214, 94, 214);
   border-color:black;
   border-width:1px;
   color: white !important;
+}
+
+.linkGallery
+{
+  background-color:black;
+  border-color:rgb(214, 94, 214) !important;
+  border-width:1px;
+  color: rgb(214, 94, 214) !important;
+}
+
+.btn-success {
+  color: white !important;
+  background-color: #007bff!important;
+  border-color: #007bff!important;
 }
 
 

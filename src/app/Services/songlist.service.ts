@@ -38,15 +38,26 @@ export class SongListService {
     return this.db.list('/songlist', ref => ref.orderByChild('genrecategory').equalTo(cat));
   }
 
+  getCurrentPlayList(): AngularFireList<SongList[]> {
+    return this.db.list('/songlist', ref => ref.orderByChild('currentplaylist').equalTo("true"));
+  }
+
   // tslint:disable-next-line:typedef
   getFilteredImages(cat: any): AngularFireList<SongList[]> {
     return this.db.list('/songlist', ref => ref.orderByChild('genrecategory').equalTo(cat));
   }
 
   // tslint:disable-next-line:typedef
-  setSongSequence(key, sequence) {
-   this.db.list('/songlist').update(key, { sequence: sequence.toString() });
+  setCurrentPL(key, currentplaylist) {
+   this.db.list('/songlist').update(key, { currentplaylist: currentplaylist });
   }
+  // tslint:disable-next-line:typedef
+  removeCetCurrentPL(key, currentplaylist) {
+    this.db.list('/songlist').update(key, { currentplaylist: currentplaylist });
+   }
+  setSongSequence(key, sequence) {
+    this.db.list('/songlist').update(key, { sequence: sequence.toString() });
+   }
 
   // tslint:disable-next-line:typedef
   deleteFileUpload(fileUpload: SongList) {

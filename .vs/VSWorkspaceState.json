@@ -3,8 +3,9 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\video-gallery"
+    "\\src\\app\\gallery",
+    "\\src\\app\\upload"
   ],
-  "SelectedNode": "\\src\\app\\video-gallery\\video-gallery.component.ts",
+  "SelectedNode": "\\src\\app\\upload\\upload.component.ts",
   "PreviewInSolutionExplorer": false
 }

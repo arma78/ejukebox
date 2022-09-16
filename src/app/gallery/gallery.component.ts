@@ -13,7 +13,7 @@ import { SelectService } from '../Services/select.service';
 })
 
 export class GalleryComponent implements OnInit, OnChanges {
-  selectedCategory: ArtCategory = new ArtCategory('Geometry', 'Geometry');
+  selectedCategory: ArtCategory = new ArtCategory('Dj Night', 'Dj Night');
   selectSubVal: any;
   artcat: ArtCategory[];
   artsubcat: ArtSubCategory[];
@@ -22,7 +22,7 @@ export class GalleryComponent implements OnInit, OnChanges {
   fileUploads = [];
   page = 1;
   pageSize = 9;
-  constructor(private selectService: SelectService, private imageService: ImageService) {
+  constructor(private selectService: SelectService, public imageService: ImageService) {
   }
 
   // tslint:disable-next-line:typedef
@@ -41,8 +41,8 @@ export class GalleryComponent implements OnInit, OnChanges {
        // Use snapshotChanges().map() to store the key
        this.imageService.getFilteredImages(this.selectedCategory.id.toString(), this.selectSubVal).snapshotChanges().map(changes => {
         return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-      }).subscribe(fileUploads => {
-        this.fileUploads = fileUploads;
+      }).subscribe((fileUploads:any) => {
+        this.fileUploads = fileUploads.sort((a, b) => (a.eventDate < b.eventDate) ? 1 : -1);
       });
     }
 
@@ -59,7 +59,7 @@ export class GalleryComponent implements OnInit, OnChanges {
         return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
       }).subscribe((fileUploads: any) => {
 
-        this.fileUploads = fileUploads;
+        this.fileUploads = fileUploads.sort((a, b) => (a.eventDate < b.eventDate) ? 1 : -1);
 
       });
     }
