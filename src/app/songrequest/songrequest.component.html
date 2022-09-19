@@ -15,8 +15,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Song Name</label>
-                    <input class="form-control" #SongName="ngModel" name="SongName" [(ngModel)]="requestSong.SongName"
+                    <label>Select song: </label>
+                    <select [(ngModel)]="selected" name="SelectedSong" (change)="update($event)">
+                      <option>--Choose Song--</option>
+                      <option *ngFor="let availableSong of availableSongs"  [value]="availableSong.key" >
+                          {{availableSong.id + " - " + availableSong.artist}}
+                      </option>
+                  </select> ,or request new one to be added into data base.
+                    <input class="form-control" value={{song}} #SongName="ngModel" name="SongName" [(ngModel)]="requestSong.SongName"
                         placeholder="Enter song name" required>
                     <div [hidden]="SongName.valid || SongName.pristine" class="alert alert-danger"></div>
                     <div [hidden]="!SongName.hasError('required')">Song Name is required field</div>
@@ -24,7 +30,7 @@
 
                 <div class="form-group">
                               <label>Performed By</label>
-                              <input class="form-control" #PerformedBy="ngModel" name="PerformedBy"
+                              <input class="form-control" value={{artist}} #PerformedBy="ngModel" name="PerformedBy"
                                 [(ngModel)]="requestSong.PerformedBy" placeholder="Enter performed by" required>
                             <div [hidden]="PerformedBy.valid || PerformedBy.pristine" class="alert alert-danger"></div>
                             <div [hidden]="!PerformedBy.hasError('required')">Performed By is required field</div>

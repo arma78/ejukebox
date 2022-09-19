@@ -41,6 +41,9 @@ export class SongListService {
   getCurrentPlayList(): AngularFireList<SongList[]> {
     return this.db.list('/songlist', ref => ref.orderByChild('currentplaylist').equalTo("true"));
   }
+  getAvailableSongsForPlayList(): AngularFireList<SongList[]> {
+    return this.db.list('/songlist', ref => ref.orderByChild('currentplaylist').equalTo("false"));
+  }
 
   // tslint:disable-next-line:typedef
   getFilteredImages(cat: any): AngularFireList<SongList[]> {

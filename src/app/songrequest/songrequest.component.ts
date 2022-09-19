@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestSong } from '../models/requestsong.model';
-import { NgForm, NgControl } from '@angular/forms';
+import { Track } from 'ngx-audio-player';
+import { SongListService } from '../Services/songlist.service';
 import { Router } from '@angular/router';
 import { ToastService } from '../Services/toast.service';
 import {
@@ -18,7 +19,14 @@ import {SongrequestService } from '../Services/songrequest.service';
   providers: [SongrequestService]
 })
 export class SongrequestComponent implements OnInit {
+
+  artist:string= '';
+  song:string= '';
+  key:string = '';
+
   fileUploads = [];
+  public availableSongs:any[] = [];
+  selected:any;
   public SonqRequestForm: FormGroup;
   submitted = false;
   requestSongList: AngularFireList<any>;
@@ -27,11 +35,12 @@ export class SongrequestComponent implements OnInit {
   cKey:string = "";
   requestSong: RequestSong = new RequestSong();
 
-  constructor(public toastService: ToastService, private songrequestservice:SongrequestService, private router: Router, private formBuilder: FormBuilder) {
-    
+  constructor(public toastService: ToastService, private songrequestservice:SongrequestService,private songlistservice: SongListService, private router: Router, private formBuilder: FormBuilder) {
+
    }
 
   ngOnInit(): void {
+    this.getAllAvailableList();
     this. getAllCodes();
     this.SonqRequestForm = this.formBuilder.group({
       Name: ['', [Validators.required, Validators.minLength(3)]],
@@ -77,6 +86,26 @@ export class SongrequestComponent implements OnInit {
   {
     this.charEnter = e.target.value;
   }
+
+  getAllAvailableList() {
+    this.songlistservice.getAvailableSongsForPlayList().snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }).subscribe((songsUploaded: any[]) => {
+      this.availableSongs = songsUploaded.sort((a, b) => a.id - b.id);
+    });
+  }
+  public AddToCurrentPL(event, key) {
+    this.songlistservice.setCurrentPL(key, 'true');
+  }
+  update(ev:any)
+  {
+    const result:any[] = this.availableSongs.filter((obj) => {
+      return obj.key === ev.target.value;
+    });
+    this.artist = result[0]['artist'];
+    this.song = result[0]['id'];
+    this.key = result[0]['key'];
+  }
   getAllCodes() {
     // Use snapshotChanges().map() to store the key
     this.songrequestservice.getCodeValidators().snapshotChanges().map(changes => {
@@ -85,6 +114,7 @@ export class SongrequestComponent implements OnInit {
 
      this.fileUploads = fileUploads;
    });
+
  }
 
 
@@ -99,19 +129,23 @@ export class SongrequestComponent implements OnInit {
         this.showSuccess();
         return this.codeValid = 'true';
         }
-  
+
        }
 
     }
-  
+
   onSubmit() {
 
     this.codeChecker();
     if (this.codeValid === 'true')
     {
     this.songrequestservice.create(this.requestSong);
+    if(this.key !== "")
+    {
+    this.AddToCurrentPL('',this.key);
+    }
     this.songrequestservice.deleteCodeValidators(this.cKey);
-    this.router.navigate(['gallery']);
+      this.router.navigate(['gallery']);
     this.submitted = true;
     }
     else {
