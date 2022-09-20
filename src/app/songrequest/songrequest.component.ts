@@ -25,9 +25,6 @@ export class SongrequestComponent implements OnInit {
 
   fileUploads = [];
   public availableSongs: any[] = [];
-  selected: any;
-
-  submitted = false;
   requestSongList: AngularFireList<any>;
   charEnter: string;
   codeValid: string = 'false';
@@ -154,11 +151,11 @@ export class SongrequestComponent implements OnInit {
           this.AddToCurrentPL(this.key);
         }
         this.songrequestservice.deleteCodeValidators(this.cKey);
-        this.router.navigate(['gallery']);
-        this.submitted = true;
+        return this.router.navigate(['gallery']);
       }
       else {
-        this.showError();
+        console.log("Something went wrong");
+        return this.showError();
       }
     }
   }

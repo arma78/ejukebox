@@ -7,7 +7,7 @@
 
                 <div class="form-group">
                   <label>Name</label>
-                  <input class="form-control" formControlName="Name" name="Name" [(ngModel)]="requestSong.Name"
+                  <input class="form-control" formControlName="Name" name="Name"
                   minlength="2"  placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
@@ -24,13 +24,13 @@
 
                 <div class="form-group">
                     <label>Select song: </label>
-                    <select [(ngModel)]="selected" name="SelectedSong" (change)="update($event)">
+                    <select name="SelectedSong" (change)="update($event)">
                       <option>--Choose Song--</option>
                       <option *ngFor="let availableSong of availableSongs"  [value]="availableSong.key" >
                           {{availableSong.id + " - " + availableSong.artist}}
                       </option>
                   </select> ,or request new one to be added into data base.
-                    <input class="form-control"  formControlName="SongName" name="SongName" [(ngModel)]="requestSong.SongName"
+                    <input class="form-control"  formControlName="SongName" name="SongName"
                         placeholder="Enter song name" required>
                 </div>
                 <div class="form-group">
@@ -48,7 +48,7 @@
                 <div class="form-group">
                               <label>Performed By</label>
                               <input class="form-control" formControlName="PerformedBy"  name="PerformedBy"
-                              minlength="2" maxlength="40" [(ngModel)]="requestSong.PerformedBy" placeholder="Enter performed by" required>
+                              minlength="2" maxlength="40"  placeholder="Enter performed by" required>
                 </div>
                 <div class="form-group">
                   <div *ngIf="PerformedBy.invalid && (PerformedBy.dirty || PerformedBy.touched)"
@@ -65,7 +65,7 @@
                        <div class="form-group">
                             <label>Validation Code</label>
                             <input class="form-control" formControlName="ValidationCode" (change)="CharacterEnter($event)" name="ValidationCode"
-                                [(ngModel)]="requestSong.ValidationCode" placeholder="Enter 6 character code."
+                                placeholder="Enter 6 character code."
                                  minlength="6" maxlength="6" required>
                         </div>
                         <div class="form-group">

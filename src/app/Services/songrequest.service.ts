@@ -15,15 +15,8 @@ export class SongrequestService {
   addsongeRequest: AngularFireList<RequestSong> = null;
   addcode: AngularFireList<CodeValidator> = null;
   constructor(public toastService: ToastService, private firebase: AngularFireDatabase) {
-    //this.afAuth.authState.subscribe(auth => {
-    //  if (auth !== undefined && auth !== null) {
-    //    this.uid = auth.uid;
-    //  }
-    //});
     this.addsongeRequest = firebase.list('/songrequestList');
     this.addcode = firebase.list('/codeValidators');
-
-
   }
 
     // tslint:disable-next-line:typedef
@@ -88,9 +81,7 @@ showSuccess2() {
     }
 
     deleteCodeValidators(ckey:string) {
-
        this.firebase.database.ref('codeValidators').child(ckey).remove();
-
       }
 
 
