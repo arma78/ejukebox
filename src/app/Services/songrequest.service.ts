@@ -74,8 +74,12 @@ showSuccess2() {
     return this.addcode.push(codevalidator).then(() => {
       this.showSuccess2();
     })
-    .catch(error =>  this.showError2(error));;
+    .catch(error =>  this.showError2(error));
   }
+
+  setCurrentPL(key) {
+    this.firebase.list('/songlist').update(key,{currentplaylist:"true" });
+   }
 
 
   getCodeValidators(): AngularFireList<CodeValidator[]> {

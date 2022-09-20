@@ -3,15 +3,23 @@
 </h3>
 <div class="container">
     <div id="caption">
-    <form #f="ngForm" (ngSubmit)="f.form.valid && f.form.dirty ? onSubmit() : ''" validate>
-
+    <form [formGroup]="SonqRequestForm"  (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
                   <label>Name</label>
-                  <input class="form-control" #Name="ngModel" name="Name" [(ngModel)]="requestSong.Name"
-                    placeholder="Enter your name" required>
-                  <div [hidden]="Name.valid || Name.pristine" class="alert alert-danger"></div>
-                  <div [hidden]="!Name.hasError('required')">Your name is required field</div>
+                  <input class="form-control" formControlName="Name" name="Name" [(ngModel)]="requestSong.Name"
+                  minlength="2"  placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                  <div *ngIf="Name.invalid && (Name.dirty || Name.touched)"
+                      class="alert alert-danger">
+                    <div *ngIf="Name.errors.required">
+                      Name is required.
+                    </div>
+                    <div *ngIf="Name.errors.minlength">
+                      Name must be at least 2 characters long.
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -22,33 +30,56 @@
                           {{availableSong.id + " - " + availableSong.artist}}
                       </option>
                   </select> ,or request new one to be added into data base.
-                    <input class="form-control" value={{song}} #SongName="ngModel" name="SongName" [(ngModel)]="requestSong.SongName"
+                    <input class="form-control"  formControlName="SongName" name="SongName" [(ngModel)]="requestSong.SongName"
                         placeholder="Enter song name" required>
-                    <div [hidden]="SongName.valid || SongName.pristine" class="alert alert-danger"></div>
-                    <div [hidden]="!SongName.hasError('required')">Song Name is required field</div>
+                </div>
+                <div class="form-group">
+                  <div *ngIf="SongName.invalid && (SongName.dirty || SongName.touched)"
+                      class="alert alert-danger">
+                    <div *ngIf="SongName.errors.required">
+                      Song name is required.
+                    </div>
+                    <div *ngIf="SongName.errors.minlength">
+                      Song name must be at least 2 characters long.
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group">
                               <label>Performed By</label>
-                              <input class="form-control" value={{artist}} #PerformedBy="ngModel" name="PerformedBy"
-                                [(ngModel)]="requestSong.PerformedBy" placeholder="Enter performed by" required>
-                            <div [hidden]="PerformedBy.valid || PerformedBy.pristine" class="alert alert-danger"></div>
-                            <div [hidden]="!PerformedBy.hasError('required')">Performed By is required field</div>
+                              <input class="form-control" formControlName="PerformedBy"  name="PerformedBy"
+                              minlength="2" maxlength="40" [(ngModel)]="requestSong.PerformedBy" placeholder="Enter performed by" required>
+                </div>
+                <div class="form-group">
+                  <div *ngIf="PerformedBy.invalid && (PerformedBy.dirty || PerformedBy.touched)"
+                      class="alert alert-danger">
+                    <div *ngIf="PerformedBy.errors.required">
+                      Artist Name is required.
+                    </div>
+                    <div *ngIf="PerformedBy.errors.minlength">
+                      Artist Name must be at least 2 characters long.
+                    </div>
+                  </div>
                 </div>
 
                        <div class="form-group">
                             <label>Validation Code</label>
-                            <input class="form-control" #ValidationCode="ngModel" (change)="CharacterEnter($event)" name="ValidationCode"
+                            <input class="form-control" formControlName="ValidationCode" (change)="CharacterEnter($event)" name="ValidationCode"
                                 [(ngModel)]="requestSong.ValidationCode" placeholder="Enter 6 character code."
                                  minlength="6" maxlength="6" required>
-                            <div [hidden]="ValidationCode.valid || ValidationCode.pristine" class="alert alert-danger">
-                                <div [hidden]="!ValidationCode.hasError('minlength')">Validation code should be 6 digit long.</div>
-                                <div [hidden]="!ValidationCode.hasError('required')">Validation code is required</div>
-                                <div [hidden]="!ValidationCode.hasError('pattern')">Validation code should be only numbers</div>
-                            </div>
-
                         </div>
-                    <input type="submit" [disabled]="!f.form.valid" class="btn btn-success">
+                        <div class="form-group">
+                          <div *ngIf="ValidationCode.invalid && (ValidationCode.dirty || ValidationCode.touched)"
+                              class="alert alert-danger">
+                            <div *ngIf="ValidationCode.errors.required">
+                              Validation code is required.
+                            </div>
+                            <div *ngIf="ValidationCode.errors.minlength">
+                              Validation code must be  6 characters long.
+                            </div>
+                          </div>
+                        </div>
+                    <input type="submit" class="btn btn-success">
     </form>
 </div>
 </div>
